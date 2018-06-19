@@ -52,13 +52,13 @@ var frases = [
         "interno":"5014"
     },
     {
-        "fase":"No he visto en la naturaleza, ningun ser en la naturaleza toda, vegetal o animal, ningún ser que quiera que su hijo se muera en el vientre o se muera afuera",
+        "frase":"No he visto en la naturaleza, ningun ser en la naturaleza toda, vegetal o animal, ningún ser que quiera que su hijo se muera en el vientre o se muera afuera",
         "interno":"3269"
     },
     {
         "frase":"Todo lo que se mueve tiene vida",
         "interno":"2619"
-    },
+    }
 ];
 
 export default frases;

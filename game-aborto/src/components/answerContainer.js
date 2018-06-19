@@ -9,23 +9,56 @@ class AnswerContainer extends React.Component {
     constructor(props){
         super(props);
         this.createArray = this.createArray.bind(this);
-        this.randomPlace = this.randomPlace.bind(this);
-
+        this.randomInRange = this.randomInRange.bind(this);
+        this.getOtherOptions = this.getOtherOptions.bind(this);
     }
-    randomPlace(max){
+    
+    randomInRange(max){
         return Math.floor(Math.random() * (max - 0 + 1)) + 0;
     }
-    createArray(optLength = 3, rightLocation){
-        console.log(rightLocation);
-        console.log(this.props.rightAnswer);
-        let dipArray = [];
-        for(let i=0; i<=optLength; i++){
-            if(i === rightLocation){
-                dipArray.push(this.props.allAnswers.diputados[this.props.rightAnswer].apellido);
+
+    getOtherOptions(list, current){
+        //1- Get a random position in the users list
+        let index = this.randomInRange(list.length);
+        let success = false;
+        
+        for(let i; success !== true; i++){
+            //2- Check if that is not a match with a user that is already in the array.
+            success = true;
+            for(let user of current){
+                // 2a If I find the user in the list of buttons, then I didn't succeed. 
+                if(user === list[index]){
+                    success = false;
+                }
+            }
+
+            //2b - If the user I got is a new one. Return and break out of the loop.
+            if(success === true){
+                return list[index];
+                break;
             }else{
-                let someIndex = this.randomPlace(this.props.allAnswers.diputados.length);
-                //if(this.props.allAnswers.diputados !== )
-                dipArray.push('someone');
+            //2c - The user was already in the list. Fetch a new random object and start this for loop again.
+                index = this.randomInRange(list.length);
+            }
+            
+        }
+    }
+
+    createArray(optLength = 3, rightLocation){
+        let dipArray = [];
+        let allDip = this.props.allAnswers.diputados;
+        let someIndex;
+        for(let i=0; i<=optLength; i++){
+            //I've defined beforehand in which button the right option will be. 
+            //That's rightLocation. 
+            //If I'm in that button, find the user that match that ID.
+            if(i === rightLocation){
+                let rightAnswer = allDip.filter(el => el.id === this.props.rightAnswer);
+                dipArray.push(rightAnswer[0]);
+            }else{
+            //If I'm in another button,populate the data with a random user. 
+                let someoneElse = this.getOtherOptions(allDip, dipArray);
+                dipArray.push(someoneElse);
             }
         }
         return dipArray;
@@ -33,15 +66,15 @@ class AnswerContainer extends React.Component {
 
 
     render(){
-        let optLength = 3;
-        let rightLocation = this.randomPlace(optLength);
+        let optLength = 2;
+        let rightLocation = this.randomInRange(optLength);
         let dipArray =[];
         
         dipArray = this.createArray(optLength, rightLocation);
 
         let renderOptions = dipArray.map((item, index) => {
             return(
-                <OptionButton key={index} text={`Dip. ${item}`} />
+                <OptionButton key={index} option={item} />
             ) 
         });
 
@@ -61,7 +94,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
     return {
-        currentScore: state.currentScore
+        currentScore: state.score
     }
 }
 

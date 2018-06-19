@@ -1,5 +1,7 @@
 import * as constants  from '../constants.js';
 
 export function increaseScore(value){
-    return { type: constants.CURRENT_SCORE, value };
+    return dispatch => {
+        dispatch({ type: constants.INCREASE_SCORE, value });
+    }
 }

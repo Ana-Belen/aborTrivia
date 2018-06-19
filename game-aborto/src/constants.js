@@ -1,1 +1,2 @@
 export const CURRENT_SCORE = 'CURRENT_SCORE';   
+export const INCREASE_SCORE = 'INCREASE_SCORE';
