@@ -19,7 +19,7 @@ class AnswerContainer extends React.Component {
 
     getOtherOptions(list, current){
         //1- Get a random position in the users list
-        let index = this.randomInRange(list.length);
+        let index = this.randomInRange(list.length -1);
         let success = false;
         
         for(let i; success !== true; i++){
@@ -34,11 +34,12 @@ class AnswerContainer extends React.Component {
 
             //2b - If the user I got is a new one. Return and break out of the loop.
             if(success === true){
+                console.log('---> in return statement', list, index);
                 return list[index];
                 break;
             }else{
             //2c - The user was already in the list. Fetch a new random object and start this for loop again.
-                index = this.randomInRange(list.length);
+                index = this.randomInRange(list.length - 1);
             }
             
         }
@@ -54,13 +55,16 @@ class AnswerContainer extends React.Component {
             //If I'm in that button, find the user that match that ID.
             if(i === rightLocation){
                 let rightAnswer = allDip.filter(el => el.id === this.props.rightAnswer);
+                console.log('---> rightAnswer[0]', rightAnswer[0]);
                 dipArray.push(rightAnswer[0]);
             }else{
             //If I'm in another button,populate the data with a random user. 
                 let someoneElse = this.getOtherOptions(allDip, dipArray);
+                console.log('---> someoneElse', someoneElse);
                 dipArray.push(someoneElse);
             }
         }
+        console.log('---> dipArray', dipArray);
         return dipArray;
     }
 

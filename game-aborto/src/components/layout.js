@@ -1,40 +1,71 @@
 import React, { Component } from 'react';
 import { push } from 'react-router-redux'
 import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import * as gameActions from '../actions/gameActions';
 
+import ScoreContainer from './scoreContainer.js';
 import QuestionContainer from './questionContainer.js';
 import AnswerContainer from './answerContainer.js';
 
-const Layout = props => {
-    let whichString = function(){
-        let max = props.frases.length-1;
-        let min = 0;
 
+class Layout extends React.Component {
+    constructor(props){
+        super(props);
+        this.whichString = this.whichString.bind(this);
+        window.layoutProps = this.props;
+    }
+
+    whichString(){
+        let max = this.props.frases.length-1;
+        let min = 0;
         let result = Math.floor(Math.random() * (max - min + 1)) + min;
 
         return result;
     };
-    return(
-      <div className="layout">
-        <div className="scoreContainer">
-        </div>
-        <div className="questionContainer">
-            <QuestionContainer
-                question = {props.frases[whichString()].frase}
-            >
-            </QuestionContainer>
-        </div>
-        <div className="answerContainer">
-            <AnswerContainer
-                rightAnswer = {props.frases[whichString()].interno}
-                allAnswers = {props.diputados}
-            >
-            </AnswerContainer>
-        </div>
-      </div>
-    );
-};
 
-export default Layout;
-//export default Layout;
+
+    render(){
+        return(
+            <div className="layout">
+              <div className="scoreContainer">
+                <ScoreContainer
+                    score={this.props.currentScore}
+                >
+                </ScoreContainer>
+              </div>
+              <div className="questionContainer">
+                  <QuestionContainer
+                      question = {this.props.frases[this.whichString()].frase}
+                  >
+                  </QuestionContainer>
+              </div>
+              <div className="answerContainer">
+                  <AnswerContainer
+                      rightAnswer = {this.props.frases[this.whichString()].interno}
+                      allAnswers = {this.props.diputados}
+                  >
+                  </AnswerContainer>
+              </div>
+            </div>
+          );
+    }
+
+}
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+      actions: bindActionCreators(Object.assign({}, gameActions), dispatch)
+    };
+}
+
+
+function mapStateToProps(state, ownProps) {
+    return {
+        currentScore: state.answerReducer.score
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
