@@ -5,3 +5,9 @@ export function increaseScore(value){
         dispatch({ type: constants.INCREASE_SCORE, value });
     }
 }
+
+export function wrongScore(value){
+    return dispatch => {
+        dispatch({ type: constants.WRONG_SCORE, value});
+    }
+}

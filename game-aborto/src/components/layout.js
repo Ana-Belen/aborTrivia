@@ -63,7 +63,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
     return {
-        currentScore: state.answerReducer.score
+        currentScore: state.answerReducer.score,
+        wrongScore: state.answerReducer.wrongScore
     }
 }
 

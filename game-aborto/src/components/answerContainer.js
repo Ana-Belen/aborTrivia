@@ -74,17 +74,14 @@ class AnswerContainer extends React.Component {
         let rightLocation = this.randomInRange(optLength);
         let dipArray =[];
         
-        dipArray = this.createArray(optLength, rightLocation);
-
-        let renderOptions = dipArray.map((item, index) => {
-            return(
-                <OptionButton key={index} option={item} />
-            ) 
-        });
+        dipArray = this.createArray(optLength, rightLocation); 
 
         return(
             <div className="options">
-                {renderOptions}
+                <OptionButton
+                    options={dipArray}
+                    rightOne={this.props.rightAnswer}
+                ></OptionButton>
             </div>
         );
     }
@@ -98,10 +95,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
     return {
-        currentScore: state.score
+        currentScore: state.score,
+        wrongScore: state.wrongScore
     }
 }
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(AnswerContainer);
-//export default AnswerContainer;
+

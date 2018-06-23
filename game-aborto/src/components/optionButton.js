@@ -9,17 +9,32 @@ class OptionButton extends React.Component {
         super(props);
         this.calcScore = this.calcScore.bind(this);
     }
-    calcScore(){
+    calcScore(id){
         window.props = this.props;
-        this.props.actions.increaseScore(10);
+        if(id === this.props.rightOne){
+            this.props.actions.increaseScore(10);
+        }else{
+            this.props.actions.wrongScore(1);
+        }
+
     }
 
     render(){
 
+         let renderOptions = this.props.options.map((item, index) => {
+             console.log('---> ITEM:', item);
+            return(
+                <button
+                key={index}
+                onClick={()=>{this.calcScore(item.id)}}
+                >{`Dip. ${item.apellido}`}</button>
+            ) 
+        });
+
         return(
-            <button
-            onClick={()=>{this.calcScore()}}
-            >{`Dip. ${this.props.option.apellido}`}</button>
+            <div>
+                {renderOptions}
+            </div>
         );
     }
 }
@@ -31,7 +46,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
     return {
-        currentScore: state.score
+        currentScore: state.score,
+        currentWrong : state.wrongScore
     }
 }
 
