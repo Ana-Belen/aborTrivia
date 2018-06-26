@@ -1,23 +1,40 @@
-html{
-  height:100%;
+html {
+  height: 100%;
 }
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
-  background: linear-gradient(to bottom, #269928 0%,#529953 100%);
+  font-family: "Open Sans", sans-serif;
+  background: linear-gradient(to bottom, #269928 0%, #529953 100%);
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height:100%;
+  height: 100%;
+}
+h1,
+h2 {
+  font-family: "Bree Serif", serif;
 }
 
-.layout{
+.layout {
   min-height: 50%;
-  background-color:white;
+  background-color: white;
   color: black;
   width: 80%;
   margin: 150px auto 0 auto;
   text-align: center;
   padding: 40px;
+}
+
+.button{
+  background:none;
+  border: 2px solid  #269928;
+  color: #269928;
+  font-size: 15px;
+  border-radius: 3px;
+  min-height: 30px;
+}
+
+.button.wrong{
+  border-color: red;
 }
 

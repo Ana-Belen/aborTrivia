@@ -13,7 +13,6 @@ class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.whichString = this.whichString.bind(this);
-    window.layoutProps = this.props;
   }
 
   whichString() {
@@ -25,25 +24,19 @@ class Layout extends React.Component {
   }
 
   render() {
-    return (
-      <div className="layout">
+    return <div className="layout">
+        <h1>¿Quién dijo?</h1>
         <div className="scoreContainer">
           <ScoreContainer score={this.props.currentScore} />
           <ErrorContainer score={this.props.wrongScore} />
         </div>
         <div className="questionContainer">
-          <QuestionContainer
-            question={this.props.frases[this.whichString()].frase}
-          />
+          <QuestionContainer question={this.props.frases[this.whichString()].frase} />
         </div>
         <div className="answerContainer">
-          <AnswerContainer
-            rightAnswer={this.props.frases[this.whichString()].interno}
-            allAnswers={this.props.diputados}
-          />
+          <AnswerContainer rightAnswer={this.props.frases[this.whichString()].interno} allAnswers={this.props.diputados} />
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 

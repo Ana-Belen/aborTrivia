@@ -9,42 +9,43 @@ class OptionButton extends React.Component {
     this.calcScore = this.calcScore.bind(this);
     this.defineClassNames = this.defineClassNames.bind(this);
   }
-  calcScore(id, feedback) {
+  calcScore(id) {
     window.props = this.props;
     if (id === this.props.rightOne) {
-      this.defineClassNames(feedback);
+      this.defineClassNames();
       setTimeout(this.props.actions.increaseScore(1), 2000);
     } else {
-      this.defineClassNames(feedback);
-      this.props.actions.wrongScore(1);
+      this.defineClassNames();
+      setTimeout(this.props.actions.wrongScore(1), 2000);
     }
   }
 
-  defineClassNames(feedback) {
+  defineClassNames() {
     for (let i = 0; i < this.props.options.length; i++) {
-      feedback[i] =
+      this.feedback[i] =
         this.props.options[i].id === this.props.rightOne ? "right" : "wrong";
     }
+    this.props.actions.reflectResult(this.feedback);
   }
 
   render() {
-    let feedback = ["", "", ""];
+    this.feedback = Array(3);
     let renderOptions = this.props.options.map((item, index) => {
-      console.log("---> ITEM:", item);
-      return (
-        <button
-          className={this.props.feedback && this.props.feedback[index]}
-          key={item.id}
-          onClick={() => {
-            this.calcScore(item.id, feedback);
-          }}
-        >{`Dip. ${item.apellido}`}</button>
-      );
+      return <button  className={"button " + this.props.reflectResult[index]} 
+                      key={item.id} onClick={() => {
+                        this.calcScore(item.id);
+                      }}>{`Dip. ${item.apellido}`}
+            </button>;
     });
 
     return <div>{renderOptions}</div>;
   }
 }
+
+OptionButton.defaultProps = {
+  reflectResult: ['', '', '']
+};
+
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(Object.assign({}, gameActions), dispatch)
@@ -52,9 +53,11 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state, ownProps) {
+  console.log('state', state);
   return {
     currentScore: state.score,
-    currentWrong: state.wrongScore
+    currentWrong: state.wrongScore,
+    reflectResult: state.answerReducer.reflectResult
   };
 }
 

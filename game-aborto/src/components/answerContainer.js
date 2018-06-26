@@ -33,21 +33,14 @@ class AnswerContainer extends React.Component {
         //that will be for sure included in the list, then I didn't succeed.
         if (user === list[index]) {
           success = false;
-          console.log(user.id, this.props.rightAnswer);
         }
       }
       if (list[index].id === this.props.rightAnswer) {
         success = false;
-        console.log(
-          "it was the right answer",
-          list[index].id,
-          this.props.rightAnswer
-        );
       }
 
       //2b - If the user I got is a new one. Return and break out of the loop.
       if (success === true) {
-        //console.log("---> in return statement", list, index);
         return list[index];
         break;
       } else {
@@ -67,16 +60,13 @@ class AnswerContainer extends React.Component {
       //If I'm in that button, find the user that match that ID.
       if (i === rightLocation) {
         let rightAnswer = allDip.filter(el => el.id === this.props.rightAnswer);
-        console.log("---> rightAnswer[0]", rightAnswer[0]);
         dipArray.push(rightAnswer[0]);
       } else {
         //If I'm in another button,populate the data with a random user.
         let someoneElse = this.getOtherOptions(allDip, dipArray);
-        console.log("---> someoneElse", someoneElse);
         dipArray.push(someoneElse);
       }
     }
-    console.log("---> dipArray", dipArray);
     return dipArray;
   }
 
@@ -104,7 +94,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   return {
     currentScore: state.score,
-    wrongScore: state.wrongScore
+    wrongScore: state.wrongScore,
+    reflectResult: state.reflectResult
   };
 }
 
