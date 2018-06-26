@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-const ScoreContainer = props => (
-    <div>{props.score}</div>
-)
+const ScoreContainer = props => <div>Aciertos:{props.score}</div>;
 
 export default ScoreContainer;
