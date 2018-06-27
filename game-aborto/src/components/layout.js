@@ -24,6 +24,7 @@ class Layout extends React.Component {
   }
 
   render() {
+    let whichOne = this.whichString();
     return <div className="layout">
         <h1>¿Quién dijo?</h1>
         <div className="scoreContainer">
@@ -31,10 +32,10 @@ class Layout extends React.Component {
           <ErrorContainer score={this.props.wrongScore} />
         </div>
         <div className="questionContainer">
-          <QuestionContainer question={this.props.frases[this.whichString()].frase} />
+          <QuestionContainer question={this.props.frases[whichOne].frase} />
         </div>
         <div className="answerContainer">
-          <AnswerContainer rightAnswer={this.props.frases[this.whichString()].interno} allAnswers={this.props.diputados} />
+          <AnswerContainer rightAnswer={this.props.frases[whichOne].interno} allAnswers={this.props.diputados} />
         </div>
       </div>;
   }

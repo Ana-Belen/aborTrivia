@@ -1,5 +1,6 @@
 html {
   height: 100%;
+  overflow:hidden;
 }
 body {
   margin: 0;
@@ -35,6 +36,6 @@ h2 {
 }
 
 .button.wrong{
-  border-color: red;
+  /*border-color: red;*/
 }
 

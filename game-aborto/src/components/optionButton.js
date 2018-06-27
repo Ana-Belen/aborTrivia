@@ -25,17 +25,28 @@ class OptionButton extends React.Component {
       this.feedback[i] =
         this.props.options[i].id === this.props.rightOne ? "right" : "wrong";
     }
+    //this.setState({ 'reflectResult': this.feedback});
     this.props.actions.reflectResult(this.feedback);
+  }
+
+  componentWillUnmount() {
+    this.props.actions.reflectResult(Array(3));
   }
 
   render() {
     this.feedback = Array(3);
     let renderOptions = this.props.options.map((item, index) => {
-      return <button  className={"button " + this.props.reflectResult[index]} 
-                      key={item.id} onClick={() => {
-                        this.calcScore(item.id);
-                      }}>{`Dip. ${item.apellido}`}
-            </button>;
+      return (
+        <button
+          className={"button " + this.props.reflectResult[index]}
+          key={item.id}
+          onClick={() => {
+            this.calcScore(item.id);
+          }}
+        >
+          {`Dip. ${item.apellido}`}
+        </button>
+      );
     });
 
     return <div>{renderOptions}</div>;
@@ -53,7 +64,6 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state, ownProps) {
-  console.log('state', state);
   return {
     currentScore: state.score,
     currentWrong: state.wrongScore,
@@ -65,4 +75,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(OptionButton);
-//export default AnswerContainer;

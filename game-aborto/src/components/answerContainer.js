@@ -54,6 +54,7 @@ class AnswerContainer extends React.Component {
     let dipArray = [];
     let allDip = this.props.allAnswers.diputados;
     let someIndex;
+    console.log('RIGHT', this.props.rightAnswer);
     for (let i = 0; i <= optLength; i++) {
       //I've defined beforehand in which button the right option will be.
       //That's rightLocation.
@@ -94,8 +95,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   return {
     currentScore: state.score,
-    wrongScore: state.wrongScore,
-    reflectResult: state.reflectResult
+    wrongScore: state.wrongScore
   };
 }
 
