@@ -37,6 +37,13 @@ class Layout extends React.Component {
         <div className="answerContainer">
           <AnswerContainer rightAnswer={this.props.frases[whichOne].interno} allAnswers={this.props.diputados} />
         </div>
+        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" 
+            className="twitter-share-button" 
+            data-size="large" 
+            data-text="Recordas quien dijo estas burradas en diputados?" 
+            data-url="https://ana-belen.github.io/abortApp/" 
+            data-lang="es" data-show-count="false">Tweet</a>
+            
       </div>;
   }
 }
